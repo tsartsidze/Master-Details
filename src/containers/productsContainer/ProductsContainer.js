@@ -131,7 +131,7 @@ const ProductsContainer = () => {
   const editProductHandler = (product) => {
     dispatch(modalShowActions.showAddModal());
 
-    setFieldValue(product);
+    setFieldValue({ ...product });
   };
 
   const addProduct = () => {
@@ -140,12 +140,12 @@ const ProductsContainer = () => {
     dispatch(
       dataSliceActions.addProduct({
         ...fieldValue,
-        id: Math.random().toString(),
+        id: Math.random(),
       })
     );
 
     dispatch(modalShowActions.hideAddModal());
-    setFieldValue("");
+    setFieldValue({});
   };
 
   const editProduct = () => {
@@ -153,7 +153,7 @@ const ProductsContainer = () => {
 
     dispatch(dataSliceActions.editProduct(fieldValue));
 
-    setFieldValue("");
+    setFieldValue({});
     dispatch(modalShowActions.hideAddModal());
   };
 
@@ -205,10 +205,8 @@ const ProductsContainer = () => {
   });
 
   const onChangeForms = (key, name) => {
-    setFieldValue({ ...fieldValue, [key]: name });
+    fieldValue[key] = name;
   };
-
-  // ===================================================================
 
   return (
     <>
@@ -233,6 +231,7 @@ const ProductsContainer = () => {
               fieldValue={categoryFieldValue}
               onChangeForms={onChangeCategoryFieldValue}
               addItem={addCategory}
+              editItem={editProduct}
             />
             <List className={classes.list}>
               {category.map((product, index) => (

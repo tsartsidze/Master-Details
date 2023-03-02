@@ -1,5 +1,4 @@
 import { ListItemButton, ListItemText } from "@mui/material";
-import { useState } from "react";
 
 const SideBar = ({ sideBarItem, sideBarCategory, className, categoryName }) => {
   return (

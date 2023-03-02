@@ -115,7 +115,7 @@ const MainModal = ({
                 label={col.field}
                 className={classes.textField}
                 size={"small"}
-                value={fieldValue[col.field]}
+                defaultValue={fieldValue[col.field]}
                 onChange={(event) =>
                   onChangeForms(col.field, event.target.value)
                 }

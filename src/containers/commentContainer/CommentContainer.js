@@ -13,7 +13,9 @@ import { getPostsService } from "../../api/services/PostsServices";
 import AppPagination from "../../components/Pagination/AppPagination";
 import {
   addCommentsService,
+  deleteCommentsService,
   getCommentsService,
+  updateCommentsService,
 } from "../../api/services/CommentsServices";
 
 const useStyles = makeStyles(() => ({
@@ -32,7 +34,7 @@ const useStyles = makeStyles(() => ({
   cardAction: {
     "&.MuiCardActions-root": {
       display: "flex",
-      justifyContent: "space-between",
+      justifyContent: "flex-end",
     },
   },
   addBtn: {
@@ -60,9 +62,7 @@ const useStyles = makeStyles(() => ({
 
 const CommentContainer = () => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
-
   const [count, setCount] = useState();
 
   useEffect(() => {
@@ -111,14 +111,14 @@ const CommentContainer = () => {
   });
 
   const onChangeForms = (key, value) => {
-    // debugger;
     let newObj = { ...fieldValue };
-    console.log(newObj);
+    let userInfo = { ...fieldValue.user };
     if (key === "body") {
       newObj[key] = value;
     } else {
-      newObj.user[key] = value;
+      userInfo.username = value;
     }
+    newObj.user = userInfo;
     setFieldValue(newObj);
   };
 
@@ -137,6 +137,7 @@ const CommentContainer = () => {
   };
 
   const editComment = () => {
+    updateCommentsService(fieldValue.id, fieldValue);
     dispatch(commentsDataActions.editComment(fieldValue));
 
     dispatch(modalShowActions.hideAddModal());
@@ -144,12 +145,12 @@ const CommentContainer = () => {
   };
 
   const deleteCommentHandler = (id) => {
+    deleteCommentsService(id);
     dispatch(commentsDataActions.deleteComment(id));
   };
 
   const editCommentHandler = (comment) => {
     dispatch(modalShowActions.showAddModal());
-
     setFieldValue(comment);
   };
 
@@ -158,7 +159,11 @@ const CommentContainer = () => {
       {allPosts.length === 0 ? (
         <h3 className={classes.loader}>Loading...</h3>
       ) : (
-        <Grid container mt={2} sx={{ marginBottom: "1.5rem" }}>
+        <Grid
+          container
+          mt={2}
+          sx={{ marginBottom: "1.5rem", marginLeft: "2rem" }}
+        >
           <Grid item xs={5} sx={{ paddingLeft: "1.5rem" }}>
             <Box sx={{ marginTop: "1.5rem" }}>
               {allPosts.map((post) => (

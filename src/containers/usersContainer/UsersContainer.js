@@ -154,7 +154,7 @@ const UsersContainer = () => {
   const editUserHandler = (user) => {
     dispatch(modalShowActions.showAddModal());
 
-    setFieldValue(user);
+    setFieldValue({ ...user });
   };
 
   // ==================================================================

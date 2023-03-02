@@ -11,11 +11,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const MainAccordion = ({ post, showCommentsHandler }) => {
   return (
     <Accordion sx={{ backgroundColor: "dark" }}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1-content"
-        id="panel1-header"
-      >
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>{post.title}</Typography>
       </AccordionSummary>
       <AccordionDetails>

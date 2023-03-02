@@ -81,7 +81,7 @@ const CommentField = ({
                 className={classes.fieldBtn}
                 variant="outlined"
                 name="Edit comment"
-                onClick={editItem}
+                onClick={() => editItem(fieldValue.id)}
               />
             ) : (
               <MainButton
